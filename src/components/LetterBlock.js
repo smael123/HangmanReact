@@ -9,13 +9,17 @@ export class LetterBlock extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { hidden: true }; //maybe just send the letter
+        this.state = { hidden: false }; //maybe just send the letter
     }
-//posibly container
+
+    reveal() {
+        this.setState({ hidden : true });
+    }
+
     render() {
         return (
             <span>
-                {(!this.state.hidden) ? this.props.letter : "_"}
+                {(!this.state.hidden) ? this.props.letter : " "}
             </span>
         )
     }

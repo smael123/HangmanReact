@@ -14,7 +14,9 @@ export class LetterPicker extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        alert(this.state.desiredLetter);
+        //alert(this.state.desiredLetter);
+
+        this.props.onSubmit(this.state.desiredLetter)
     };
 
     handleDesiredLetterChange(e) {

@@ -10,12 +10,26 @@ const styles = {
 export class LetterBlockContainer extends React.Component {
     constructor(props) {
         super(props);
+
+        // this.state = { 
+        //     revealedWord : "_".repeat(this.props.word.length())
+        // };
     }
+
+    // revealLetter(letter) {
+    //     let updatedWord = [];
+
+    //     [...this.props.word].map((val, index, updatedWord)  => {
+    //         (val === letter) ?  val : "_";
+    //     })
+
+    //     this.setState({ revealedWord : updatedWord.join() });
+    // }
 
     render() {
         return (
             <div>
-                {[...this.props.word].map((val, index) => <LetterBlock key={index} letter={val} />)}
+                {[...this.props.word].map((val) => <span style={{margin: "auto 5px"}}>{val}</span>)}
             </div>
         )
     }

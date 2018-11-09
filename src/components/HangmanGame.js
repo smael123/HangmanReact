@@ -10,32 +10,36 @@ export class HangmanGame extends React.Component {
         super(props);
 
         this.state = {
-            gameOver : false
+            gameOver : false,
+            revealedWord : "_".repeat(this.props.word.length)
         }
+
+        this.revealLetter = this.revealLetter.bind(this);
+    }
+
+    revealLetter(letter) {
+        let updatedWordIndeces = [];
+        
+        [...this.props.word].forEach((val, index) => 
+        { 
+            if (val === letter) {
+                updatedWordIndeces.push(index)
+            }
+        });
+
+        let revealedWordArr = [...this.state.revealedWord];
+
+        updatedWordIndeces.forEach((val) => revealedWordArr[val] = this.props.word.charAt(val));
+
+        this.setState({ revealedWord : revealedWordArr.join('') });
     }
 
     render() {
-        // let letterBlocks = [];
-
-        // [...this.props.word].forEach((val, index) => {
-        //     letterBlocks.push(<LetterBlock />)
-        // })
-
-        // [...this.props.word].forEach((val, index) => {
-        //     letterBlocks.push(<LetterBlock />)
-        // })
-
-        // let i = 0;
-
-        // for (var char in  this.props.word)
-
-        const items = [...this.props.word].map((val, index) => <LetterBlock key={index} letter={val} />);
-
         return (
             <div>
                 <TryCounter numberOfTries={5} />
-                <LetterBlockContainer word="hello" />
-                <LetterPicker />
+                <LetterBlockContainer word={this.state.revealedWord} />
+                <LetterPicker onSubmit={this.revealLetter} />
             </div>
         )
     }
