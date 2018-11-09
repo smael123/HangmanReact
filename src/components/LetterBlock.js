@@ -11,17 +11,17 @@ export class LetterBlock extends React.Component {
 
         this.state = { hidden: true }; //maybe just send the letter
     }
-
+//posibly container
     render() {
         return (
-            <span style={styles}>
-                {(this.state.hidden) ? this.props.letter : " "}
+            <span>
+                {(!this.state.hidden) ? this.props.letter : "_"}
             </span>
         )
     }
 }
 
-LetterBlock.PropTypes = {
+LetterBlock.propTypes = {
     letter: PropTypes.string.isRequired
 };
 

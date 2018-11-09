@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { LetterPicker } from "./components/LetterPicker"
+import { HangmanGame } from './components/HangmanGame';
 
 class App extends Component {
   render() {
     return (
-      <LetterPicker />
+      <HangmanGame word="hello" />
     );
   }
 }
