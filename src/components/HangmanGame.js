@@ -41,6 +41,7 @@ export class HangmanGame extends React.Component {
                 <LetterBlockContainer word={this.state.revealedWord} />
                 <LetterPicker onSubmit={this.revealLetter} />
             </div>
+            
         )
     }
 }

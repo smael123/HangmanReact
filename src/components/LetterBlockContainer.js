@@ -28,8 +28,8 @@ export class LetterBlockContainer extends React.Component {
 
     render() {
         return (
-            <div>
-                {[...this.props.word].map((val) => <span style={{margin: "auto 5px"}}>{val}</span>)}
+            <div className="letter-block-container row">
+                {[...this.props.word].map((val) => <span className="letter-block col">{val}</span>)}
             </div>
         )
     }

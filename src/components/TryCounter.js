@@ -14,7 +14,9 @@ export class TryCounter extends React.Component {
 
     render() {
         return (
-            <p>{this.state.numberOfTriesLeft} of tries left.</p>
+            <div className="try-counter">
+                <span>{this.state.numberOfTriesLeft} tries left</span>
+            </div>
         )
     }
 }

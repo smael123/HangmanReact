@@ -30,3 +30,28 @@
     transform: rotate(360deg);
   }
 }
+
+
+/*start of mine*/
+
+#desired-letter {
+  width: 60px;
+}
+
+.letter-block-container {
+  text-align: center;
+  font-size: 4rem;
+}
+
+.try-counter {
+  text-align: center;
+}
+
+.try-counter span {
+  margin: 50% auto;
+  font-size: 4rem;
+}
+
+.letter-picker {
+  margin: 20px 50%;
+}
