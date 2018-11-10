@@ -7,15 +7,15 @@ export class TryCounter extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            numberOfTriesLeft : this.props.numberOfTries
-        }
+        // this.state = {
+        //     numberOfTriesLeft : this.props.numberOfTries
+        // }
     }
 
     render() {
         return (
             <div className="try-counter">
-                <span>{this.state.numberOfTriesLeft} tries left</span>
+                <span>{this.props.numberOfTries} tries left</span>
             </div>
         )
     }

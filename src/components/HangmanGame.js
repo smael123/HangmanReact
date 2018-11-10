@@ -11,7 +11,8 @@ export class HangmanGame extends React.Component {
 
         this.state = {
             gameOver : false,
-            revealedWord : "_".repeat(this.props.word.length)
+            revealedWord : "_".repeat(this.props.word.length),
+            numberOfTriesLeft : 5
         }
 
         this.revealLetter = this.revealLetter.bind(this);
@@ -27,17 +28,26 @@ export class HangmanGame extends React.Component {
             }
         });
 
-        let revealedWordArr = [...this.state.revealedWord];
+        if (updatedWordIndeces.length > 0) {
+            let revealedWordArr = [...this.state.revealedWord];
 
-        updatedWordIndeces.forEach((val) => revealedWordArr[val] = this.props.word.charAt(val).toUpperCase());
+            updatedWordIndeces.forEach((val) => revealedWordArr[val] = this.props.word.charAt(val).toUpperCase());
 
-        this.setState({ revealedWord : revealedWordArr.join('') });
+            this.setState({ 
+                revealedWord : revealedWordArr.join(''),
+            });
+        }
+        else {
+            this.setState({ 
+                numberOfTriesLeft : this.state.numberOfTriesLeft - 1
+            });
+        }
     }
 
     render() {
         return (
             <div>
-                <TryCounter numberOfTries={5} />
+                <TryCounter numberOfTries={this.state.numberOfTriesLeft} />
                 <LetterBlockContainer word={this.state.revealedWord} />
                 <LetterPicker onSubmit={this.revealLetter} />
             </div>
