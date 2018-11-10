@@ -17,12 +17,20 @@ export class LetterPicker extends React.Component {
         //alert(this.state.desiredLetter);
 
         this.props.onSubmit(this.state.desiredLetter)
+
+        //clear input after submission
+        this.setState({ desiredLetter : "" }); //validation error shown afterwards
+        
+        // const form = document.querySelector(".letter-picker form");
+        // form.reset()
     };
 
     handleDesiredLetterChange(e) {
-        const desiredLetter = e.target.value;
+        const desiredLetter = e.target.value.toUpperCase();
         
         this.setState({ desiredLetter : desiredLetter });
+
+        e.target.value = this.state.desiredLetter; //return capitalized letter
     }
 
     render() {
