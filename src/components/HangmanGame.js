@@ -20,16 +20,16 @@ export class HangmanGame extends React.Component {
     revealLetter(letter) {
         let updatedWordIndeces = [];
         
-        [...this.props.word].forEach((val, index) => 
+        [...this.props.word.toUpperCase()].forEach((val, index) => 
         { 
-            if (val === letter) {
+            if (val === letter || val.toLowerCase() === letter) {
                 updatedWordIndeces.push(index)
             }
         });
 
         let revealedWordArr = [...this.state.revealedWord];
 
-        updatedWordIndeces.forEach((val) => revealedWordArr[val] = this.props.word.charAt(val));
+        updatedWordIndeces.forEach((val) => revealedWordArr[val] = this.props.word.charAt(val).toUpperCase());
 
         this.setState({ revealedWord : revealedWordArr.join('') });
     }
