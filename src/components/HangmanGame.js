@@ -10,15 +10,20 @@ export class HangmanGame extends React.Component {
         super(props);
 
         this.state = {
-            gameOver : false,
+            gameOver : false, //could also just count no of tries left but underflow
             revealedWord : "_".repeat(this.props.word.length),
-            numberOfTriesLeft : 5
+            numberOfTriesLeft : 5,
+            victory : false
         }
 
         this.revealLetter = this.revealLetter.bind(this);
     }
 
     revealLetter(letter) {
+        if (this.state.gameOver) {
+            return;
+        }
+
         let updatedWordIndeces = [];
         
         [...this.props.word.toUpperCase()].forEach((val, index) => 
@@ -33,21 +38,51 @@ export class HangmanGame extends React.Component {
 
             updatedWordIndeces.forEach((val) => revealedWordArr[val] = this.props.word.charAt(val).toUpperCase());
 
+            const combinedRevealedWordArr = revealedWordArr.join('');
+            console.log(combinedRevealedWordArr);
+            const entireWordRevealed = (combinedRevealedWordArr === this.props.word);
+
             this.setState({ 
-                revealedWord : revealedWordArr.join(''),
+                revealedWord : combinedRevealedWordArr,
+                gameOver : entireWordRevealed,
+                victory: entireWordRevealed
             });
+
+            // if (this.state.revealedWord === this.props.word) {
+            //     this.setState({gameOver : true, victory : true});
+            // }
         }
         else {
+            const newNumber = this.state.numberOfTriesLeft - 1;
+
             this.setState({ 
-                numberOfTriesLeft : this.state.numberOfTriesLeft - 1
+                numberOfTriesLeft : newNumber,
+                gameOver : newNumber < 1,
+                //victory: this.state.revealedWord === this.props.word
             });
+
+            // if (this.state.numberOfTriesLeft == 0) {
+            //     this.setState({gameOver : true});
+            // }
         }
+
+        // const newNumber = this.state.numberOfTriesLeft - 1;
+
+        // this.setState({ 
+        //     numberOfTriesLeft : newNumber,
+        //     gameOver : newNumber < 1,
+        //     victory: this.state.revealedWord == this.props.word
+        // });
     }
 
     render() {
         return (
             <div>
-                <TryCounter numberOfTries={this.state.numberOfTriesLeft} />
+                <TryCounter 
+                    numberOfTries={this.state.numberOfTriesLeft} 
+                    gameOver={this.state.gameOver} 
+                    victory={this.state.victory} 
+                />
                 <LetterBlockContainer word={this.state.revealedWord} />
                 <LetterPicker onSubmit={this.revealLetter} />
             </div>

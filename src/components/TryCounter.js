@@ -13,14 +13,28 @@ export class TryCounter extends React.Component {
     }
 
     render() {
+        let message;
+
+        if (!this.props.victory && !this.props.gameOver) {
+            message = this.props.numberOfTries + " tries left";
+        }
+        else if (!this.props.victory && this.props.gameOver) {
+            message = "GAME OVER!";
+        }
+        else {
+            message = "YOU WIN!";
+        }
+
         return (
             <div className="try-counter">
-                <span>{this.props.numberOfTries} tries left</span>
+                 <span>{message}</span>
             </div>
         )
     }
 }
 
 TryCounter.propTypes = {
-    numberOfTries : PropTypes.number.isRequired
+    numberOfTries : PropTypes.number.isRequired,
+    gameOver : PropTypes.bool.isRequired,
+    victory: PropTypes.bool.isRequired
 };
