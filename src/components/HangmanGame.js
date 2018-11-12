@@ -4,19 +4,42 @@ import { TryCounter } from './TryCounter';
 import { LetterBlock } from './LetterBlock';
 import { LetterPicker } from './LetterPicker';
 import { LetterBlockContainer } from './LetterBlockContainer';
+import { ResetButton } from './ResetButton';
+//import { words } from "random-words";
 
 export class HangmanGame extends React.Component {
     constructor(props) {
         super(props);
 
+        const randomWords = require('random-words');
+
+        const randomWordChosen = randomWords().toUpperCase();
+
         this.state = {
+            word : randomWordChosen,
             gameOver : false, //could also just count no of tries left but underflow
-            revealedWord : "_".repeat(this.props.word.length),
+            revealedWord : "_".repeat(randomWordChosen.length),
             numberOfTriesLeft : 5,
             victory : false
         }
 
         this.revealLetter = this.revealLetter.bind(this);
+        this.intializeGame = this.intializeGame.bind(this);
+    }
+
+    intializeGame() {
+        const randomWords = require('random-words');
+
+        const randomWordChosen = randomWords().toUpperCase();
+
+        //cannot call this.state!
+        this.setState ({
+            word : randomWordChosen,
+            gameOver : false, //could also just count no of tries left but underflow
+            revealedWord : "_".repeat(randomWordChosen.length),
+            numberOfTriesLeft : 5,
+            victory : false
+        })
     }
 
     revealLetter(letter) {
@@ -26,7 +49,7 @@ export class HangmanGame extends React.Component {
 
         let updatedWordIndeces = [];
         
-        [...this.props.word.toUpperCase()].forEach((val, index) => 
+        [...this.state.word.toUpperCase()].forEach((val, index) => 
         { 
             if (val === letter || val.toLowerCase() === letter) {
                 updatedWordIndeces.push(index)
@@ -36,48 +59,33 @@ export class HangmanGame extends React.Component {
         if (updatedWordIndeces.length > 0) {
             let revealedWordArr = [...this.state.revealedWord];
 
-            updatedWordIndeces.forEach((val) => revealedWordArr[val] = this.props.word.charAt(val).toUpperCase());
+            updatedWordIndeces.forEach((val) => revealedWordArr[val] = this.state.word.charAt(val).toUpperCase());
 
             const combinedRevealedWordArr = revealedWordArr.join('');
             console.log(combinedRevealedWordArr);
-            const entireWordRevealed = (combinedRevealedWordArr === this.props.word);
+            const entireWordRevealed = (combinedRevealedWordArr === this.state.word);
 
             this.setState({ 
                 revealedWord : combinedRevealedWordArr,
                 gameOver : entireWordRevealed,
                 victory: entireWordRevealed
             });
-
-            // if (this.state.revealedWord === this.props.word) {
-            //     this.setState({gameOver : true, victory : true});
-            // }
         }
         else {
             const newNumber = this.state.numberOfTriesLeft - 1;
 
-            this.setState({ 
+            this.setState({
+                revealedWord: (newNumber < 1) ? this.state.word : this.state.revealedWord,
                 numberOfTriesLeft : newNumber,
                 gameOver : newNumber < 1,
-                //victory: this.state.revealedWord === this.props.word
             });
-
-            // if (this.state.numberOfTriesLeft == 0) {
-            //     this.setState({gameOver : true});
-            // }
         }
-
-        // const newNumber = this.state.numberOfTriesLeft - 1;
-
-        // this.setState({ 
-        //     numberOfTriesLeft : newNumber,
-        //     gameOver : newNumber < 1,
-        //     victory: this.state.revealedWord == this.props.word
-        // });
     }
 
     render() {
         return (
             <div>
+                <ResetButton onClick={this.intializeGame} />
                 <TryCounter 
                     numberOfTries={this.state.numberOfTriesLeft} 
                     gameOver={this.state.gameOver} 
@@ -90,7 +98,3 @@ export class HangmanGame extends React.Component {
         )
     }
 }
-
-HangmanGame.propTypes = {
-    word : PropTypes.string.isRequired
-};

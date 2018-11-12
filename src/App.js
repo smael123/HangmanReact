@@ -5,7 +5,7 @@ import { HangmanGame } from './components/HangmanGame';
 class App extends Component {
   render() {
     return (
-      <HangmanGame word="HELLO" />
+      <HangmanGame />
     );
   }
 }
