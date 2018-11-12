@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types"
 
 export class LetterPicker extends React.Component {
     constructor(props) {
@@ -48,4 +49,8 @@ export class LetterPicker extends React.Component {
             </div>
         )
     }
+}
+
+LetterPicker.propTypes = {
+    onSubmit : PropTypes.func.isRequired
 }

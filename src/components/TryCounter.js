@@ -3,34 +3,25 @@ import PropTypes from 'prop-types';
 
 //init no of tries should be in game...
 
-export class TryCounter extends React.Component {
-    constructor(props) {
-        super(props);
+export const TryCounter = (props) => {
+    let message;
 
-        // this.state = {
-        //     numberOfTriesLeft : this.props.numberOfTries
-        // }
+    if (!props.victory && !props.gameOver) {
+        message = props.numberOfTries + " tries left";
+    }
+    else if (!props.victory && props.gameOver) {
+        message = "GAME OVER!";
+    }
+    else {
+        message = "YOU WIN!";
     }
 
-    render() {
-        let message;
+    return (
+        <div className="try-counter">
+            <span>{message}</span>
+        </div>
+    )
 
-        if (!this.props.victory && !this.props.gameOver) {
-            message = this.props.numberOfTries + " tries left";
-        }
-        else if (!this.props.victory && this.props.gameOver) {
-            message = "GAME OVER!";
-        }
-        else {
-            message = "YOU WIN!";
-        }
-
-        return (
-            <div className="try-counter">
-                 <span>{message}</span>
-            </div>
-        )
-    }
 }
 
 TryCounter.propTypes = {

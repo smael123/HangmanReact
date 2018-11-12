@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { TryCounter } from './TryCounter';
-import { LetterBlock } from './LetterBlock';
 import { LetterPicker } from './LetterPicker';
 import { LetterBlockContainer } from './LetterBlockContainer';
 import { ResetButton } from './ResetButton';
-//import { words } from "random-words";
 
 export class HangmanGame extends React.Component {
     constructor(props) {
