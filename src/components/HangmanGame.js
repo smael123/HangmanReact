@@ -3,7 +3,7 @@ import React from 'react';
 import { TryCounter } from './TryCounter';
 import { LetterPicker } from './LetterPicker';
 import { LetterBlockContainer } from './LetterBlockContainer';
-import { ResetButton } from './ResetButton';
+import { MenuBar } from './MenuBar';
 
 export class HangmanGame extends React.Component {
     constructor(props) {
@@ -83,16 +83,17 @@ export class HangmanGame extends React.Component {
     render() {
         return (
             <div>
-                <ResetButton onClick={this.intializeGame} />
-                <TryCounter 
-                    numberOfTries={this.state.numberOfTriesLeft} 
-                    gameOver={this.state.gameOver} 
-                    victory={this.state.victory} 
-                />
-                <LetterBlockContainer word={this.state.revealedWord} />
-                <LetterPicker onSubmit={this.revealLetter} />
+                <MenuBar handleResetButtonClick={this.intializeGame} />
+                <div className="container">
+                    <TryCounter 
+                        numberOfTries={this.state.numberOfTriesLeft} 
+                        gameOver={this.state.gameOver} 
+                        victory={this.state.victory} 
+                    />
+                    <LetterBlockContainer word={this.state.revealedWord} />
+                    <LetterPicker onSubmit={this.revealLetter} />
+                </div>
             </div>
-            
         )
     }
 }
